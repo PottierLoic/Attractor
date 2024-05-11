@@ -4,6 +4,8 @@ use winit::{
   window::WindowBuilder,
 };
 
+mod vector3;
+
 fn main() {
   let event_loop = EventLoop::new();
   let window = WindowBuilder::new().build(&event_loop).unwrap();
