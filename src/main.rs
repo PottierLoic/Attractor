@@ -5,6 +5,7 @@ use winit::{
 };
 
 mod vector3;
+mod trajectory;
 
 fn main() {
   let event_loop = EventLoop::new();

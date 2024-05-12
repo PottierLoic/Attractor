@@ -2,7 +2,7 @@ use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 
 /// Represents a vector in 3D space.
 #[derive(Clone, Copy, Debug, PartialEq)]
-struct Vector3 {
+pub struct Vector3 {
   x: f32,
   y: f32,
   z: f32,
