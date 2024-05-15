@@ -24,7 +24,7 @@ fn display_circle(vec: Vector3, radius: f32, color: Color) {
 
 #[macroquad::main(window_conf)]
 async fn main() {
-  let mut attractor = Attractor::new(100, 10.0, 28.0, 8.0);
+  let mut attractor = Attractor::new(100, 10.0, 28.0, 8.0 / 3.0);
 
   let mut last_update_time = get_time();
   loop {

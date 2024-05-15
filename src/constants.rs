@@ -6,4 +6,4 @@ pub const SCALE_FACTOR: f32 = 8.0;
 
 pub const BALL_RADIUS: f32 = 3.0;
 
-pub const REFRESH_RATE: f32 = 1.0 / 120.0;
+pub const REFRESH_RATE: f32 = 1.0 / 240.0;

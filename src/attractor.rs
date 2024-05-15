@@ -24,7 +24,6 @@ impl Attractor {
   }
 
   pub fn update(&mut self, dt: f32) {
-    // TODO: use equation to update points
     for point in &mut self.points {
       let dx = self.sigma * (point.y - point.x);
       let dy = point.x * (self.rho - point.z) - point.y;
