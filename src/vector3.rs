@@ -3,9 +3,9 @@ use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 /// Represents a vector in 3D space.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Vector3 {
-  x: f32,
-  y: f32,
-  z: f32,
+  pub x: f32,
+  pub y: f32,
+  pub z: f32,
 }
 
 impl Add for Vector3 {

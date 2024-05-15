@@ -1,27 +1,43 @@
-use winit::{
-  event::{Event, WindowEvent},
-  event_loop::{ControlFlow, EventLoop},
-  window::WindowBuilder,
-};
+use macroquad::{miniquad::conf, prelude::*};
 
+mod constants;
+use constants::*;
 mod vector3;
-mod trajectory;
+use vector3::Vector3;
+mod attractor;
+use attractor::Attractor;
 
-fn main() {
-  let event_loop = EventLoop::new();
-  let window = WindowBuilder::new().build(&event_loop).unwrap();
-  window.set_title("Attractor");
-  env_logger::init();
+fn window_conf () -> conf::Conf {
+  conf::Conf {
+    window_title: "Attractor".to_owned(),
+    window_width: SCREEN_SIZE as i32,
+    window_height: SCREEN_SIZE as i32,
+    ..Default::default()
+  }
+}
 
-  event_loop.run(move |event, _, control_flow| {
-    *control_flow = ControlFlow::Wait;
+fn display_circle(vec: Vector3, radius: f32, color: Color) {
+  let pos_x: f32 = SCREEN_SIZE / 2.0 + vec.x * SCALE_FACTOR;
+  let pos_y: f32 = SCREEN_SIZE / 2.0 + vec.y * SCALE_FACTOR;
+  draw_circle(pos_x, pos_y, radius, color);
+}
 
-    match event {
-      Event::WindowEvent {
-        event: WindowEvent::CloseRequested,
-        ..
-      } => *control_flow = ControlFlow::Exit,
-      _ => (),
+#[macroquad::main(window_conf)]
+async fn main() {
+  let mut attractor = Attractor::new(100, 10.0, 28.0, 8.0);
+
+  let mut last_update_time = get_time();
+  loop {
+    let now = get_time();
+    let delta_time = now - last_update_time;
+    if delta_time >= REFRESH_RATE as f64 {
+      last_update_time = now;
+      attractor.update(delta_time as f32);
     }
-  });
+    clear_background(BACKGROUND);
+    for point in &attractor.points {
+      display_circle(*point, BALL_RADIUS, WHITE);
+    }
+    next_frame().await
+  }
 }
