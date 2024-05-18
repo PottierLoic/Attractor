@@ -6,6 +6,7 @@ mod vector3;
 use vector3::Vector3;
 mod attractor;
 use attractor::Attractor;
+mod trajectory;
 
 fn window_conf () -> conf::Conf {
   conf::Conf {
@@ -24,7 +25,7 @@ fn display_circle(vec: Vector3, radius: f32, color: Color) {
 
 #[macroquad::main(window_conf)]
 async fn main() {
-  let mut attractor = Attractor::new(100, 10.0, 28.0, 8.0 / 3.0);
+  let mut attractor = Attractor::new(25, 10.0, 28.0, 8.0 / 3.0);
 
   let mut last_update_time = get_time();
   loop {
@@ -35,9 +36,14 @@ async fn main() {
       attractor.update(delta_time as f32);
     }
     clear_background(BACKGROUND);
-    for point in &attractor.points {
-      display_circle(*point, BALL_RADIUS, WHITE);
-    }
+    for trajectory in &attractor.trajectories {
+      let total_points = trajectory.points.len();
+      for (index, point) in trajectory.points.iter().enumerate() {
+        let opacity = index as f32 / total_points as f32;
+        let faded_color = Color::new(TRACE_COLOR.r, TRACE_COLOR.g, TRACE_COLOR.b, opacity);
+        display_circle(*point, BALL_RADIUS, faded_color);
+      }
+  }
     next_frame().await
   }
 }

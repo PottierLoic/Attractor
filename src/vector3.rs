@@ -86,37 +86,6 @@ impl DivAssign<f32> for Vector3 {
   }
 }
 
-impl Vector3 {
-  pub fn magnitude(&self) -> f32 {
-    (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
-  }
-
-  pub fn normalize(&self) -> Vector3 {
-    let mag = self.magnitude();
-    Vector3 {
-      x: self.x / mag,
-      y: self.y / mag,
-      z: self.z / mag,
-    }
-}
-
-  pub fn distance_to(&self, other: &Self) -> f32 {
-    (*self - *other).magnitude()
-  }
-
-  pub fn dot(&self, other: &Self) -> f32 {
-    self.x * other.x + self.y * other.y + self.z * other.z
-  }
-
-  pub fn cross(&self, other: &Self) -> Vector3 {
-    Vector3 {
-      x: self.y * other.z - self.z * other.y,
-      y: self.z * other.x - self.x * other.z,
-      z: self.x * other.y - self.y * other.x,
-    }
-  }
-}
-
 #[cfg(test)]
 mod tests {
   use super::*;

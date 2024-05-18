@@ -1,9 +1,9 @@
 use crate::vector3::Vector3;
 
 pub struct Trajectory {
-  points: Vec<Vector3>,
-  max_points: usize,
-  show_path: bool,
+  pub points: Vec<Vector3>,
+  pub max_points: usize,
+  pub show_path: bool,
 }
 
 impl Trajectory {
